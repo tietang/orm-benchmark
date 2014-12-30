@@ -82,9 +82,6 @@ func GormReadSlice(b *B) {
 	})
 	for i := 0; i < b.N; i++ {
 		var models []*Model
-		if err := gm.Where("id > ?", 0).Limit(100).Find(&models); err != nil {
-			fmt.Println(err)
-			b.FailNow()
-		}
+		gm.Where("id > ?", 0).Limit(100).Find(&models)
 	}
 }
