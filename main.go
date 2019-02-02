@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kihamo/orm-benchmark/benchs"
+	"github.com/tietang/orm-benchmark/benchs"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -43,7 +43,9 @@ func main() {
 	var orms ListOpts
 	flag.IntVar(&benchs.ORM_MAX_IDLE, "max_idle", 200, "max idle conns")
 	flag.IntVar(&benchs.ORM_MAX_CONN, "max_conn", 200, "max open conns")
-	flag.StringVar(&benchs.ORM_SOURCE, "source", "root:@/orm_bench?charset=utf8", "mysql dsn source")
+	////url := "root:111111@tcp(192.168.1.12:3306)/orm_bench?charset=utf8&parseTime=true"
+	//
+	flag.StringVar(&benchs.ORM_SOURCE, "source", "root:111111@tcp(192.168.1.12:3306)/orm_bench?charset=utf8&parseTime=true", "mysql dsn source")
 	flag.IntVar(&benchs.ORM_MULTI, "multi", 1, "base query nums x multi")
 	flag.Var(&orms, "orm", "orm name: all, "+strings.Join(benchs.BrandNames, ", "))
 	flag.Parse()
