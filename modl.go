@@ -1,4 +1,4 @@
-package benchs
+package main
 
 import (
 	"database/sql"

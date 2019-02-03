@@ -3,6 +3,7 @@ package benchs
 import (
     "fmt"
     "github.com/tietang/dbx"
+    "strings"
     "time"
 )
 
@@ -59,7 +60,36 @@ func DbxIOInsert(b *B) {
 }
 
 func DbxIOInsertMulti(b *B) {
-    panic(fmt.Errorf("Not support multi insert"))
+    var ms []*Model
+    wrapExecute(b, func() {
+        initDB()
+
+        ms = make([]*Model, 0, 100)
+        for i := 0; i < 100; i++ {
+            ms = append(ms, NewModel())
+        }
+    })
+
+    for i := 0; i < b.N; i++ {
+        nFields := 7
+        query := rawInsertBaseSQL + strings.Repeat(rawInsertValuesSQL+",", len(ms)-1) + rawInsertValuesSQL
+        args := make([]interface{}, len(ms)*nFields)
+        for j := range ms {
+            offset := j * nFields
+            args[offset+0] = ms[j].Name
+            args[offset+1] = ms[j].Title
+            args[offset+2] = ms[j].Fax
+            args[offset+3] = ms[j].Web
+            args[offset+4] = ms[j].Age
+            args[offset+5] = ms[j].Right
+            args[offset+6] = ms[j].Counter
+        }
+        _, _, err := database.Execute(query, args...)
+        if err != nil {
+            fmt.Println(err)
+            b.FailNow()
+        }
+    }
 }
 
 func DbxIOUpdate(b *B) {
@@ -68,7 +98,10 @@ func DbxIOUpdate(b *B) {
     wrapExecute(b, func() {
         initDB()
         m = NewModel()
-        database.Insert(m)
+        rs, _ := database.Insert(m)
+        id, _ := rs.LastInsertId()
+        m.Id = int(id)
+
     })
 
     for i := 0; i < b.N; i++ {

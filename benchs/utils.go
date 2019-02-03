@@ -7,7 +7,7 @@ import (
 )
 
 type Model struct {
-    Id      int `db:"id",qbs:"pk" sql:"pk"`
+    Id      int `db:"id,pk",qbs:"pk" sql:"pk"`
     Name    string
     Title   string
     Fax     string
