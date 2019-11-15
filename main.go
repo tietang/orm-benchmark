@@ -45,7 +45,8 @@ func main() {
 	flag.IntVar(&benchs.ORM_MAX_CONN, "max_conn", 200, "max open conns")
 	////url := "root:111111@tcp(192.168.1.12:3306)/orm_bench?charset=utf8&parseTime=true"
 	//
-	flag.StringVar(&benchs.ORM_SOURCE, "source", "root:111111@tcp(192.168.1.12:3306)/orm_bench?charset=utf8&parseTime=true", "mysql dsn source")
+	flag.StringVar(&benchs.ORM_SOURCE, "source", "root:111111@tcp(127.0.0.1:3306)/orm_bench?charset=utf8&parseTime=true", "mysql dsn source")
+	//flag.StringVar(&benchs.ORM_SOURCE, "source", "root:111111@tcp(172.16.1.248:3306)/orm_bench?charset=utf8&parseTime=true", "mysql dsn source")
 	flag.IntVar(&benchs.ORM_MULTI, "multi", 1, "base query nums x multi")
 	flag.Var(&orms, "orm", "orm name: all, "+strings.Join(benchs.BrandNames, ", "))
 	flag.Parse()
