@@ -19,10 +19,11 @@ func init() {
 		st.AddBenchmark("MultiRead limit 100", 2000*ORM_MULTI, DbxIOReadSlice)
 
 		settings := dbx.Settings{
-			DriverName:      "mysql",
-			User:            "root",
-			Password:        "111111",
-			Host:            "192.168.1.12:3306",
+			DriverName: "mysql",
+			User:       "root",
+			Password:   "111111",
+			Host:       "127.0.0.1:3306",
+			//Host:            "192.168.1.12:3306",
 			Database:        "orm_bench",
 			MaxOpenConns:    ORM_MAX_CONN,
 			MaxIdleConns:    ORM_MAX_IDLE,
